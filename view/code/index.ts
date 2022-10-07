@@ -1,9 +1,12 @@
+import LZString from 'lz-string'
+
 import {
   setCurrentFromColor,
   valueToColor,
   current
 } from '../../stores/current.js'
 import { parse, formatLch } from '../../lib/colors.js'
+import { generatePalette } from '../../lib/palette/palette.js'
 import { visible } from '../../stores/visible.js'
 
 let lch = document.querySelector<HTMLDivElement>('.code.is-lch')!
@@ -12,12 +15,25 @@ let lchInput = lch.querySelector<HTMLInputElement>('input')!
 let rgb = document.querySelector<HTMLDivElement>('.code.is-rgb')!
 let rgbInput = rgb.querySelector<HTMLInputElement>('input')!
 
+let paletteLink = document.querySelector<HTMLAnchorElement>('#palette-link')!
+let demo = document.querySelector<HTMLDivElement>('#palette-demo')!
+
 let notePaste = document.querySelector<HTMLDivElement>('.code_note.is-paste')!
 let noteFallback = document.querySelector<HTMLDivElement>(
   '.code_note.is-fallback'
 )!
 
-function toggle(input: HTMLInputElement, invalid: boolean): void {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getPaletteLink(hexPalette: any): string {
+  let compressed = LZString.compressToEncodedURIComponent(
+    JSON.stringify(hexPalette)
+  )
+  let url = new URL('https://huetone.ardov.me/')
+  url.searchParams.set('palette', compressed)
+  return url.toString()
+}
+
+function toggle(input: HTMLElement, invalid: boolean): void {
   if (invalid) {
     input.setAttribute('aria-invalid', 'true')
   } else {
@@ -34,6 +50,26 @@ function setLch(): void {
   prevValues.set(lchInput, text)
   lchInput.value = text
   toggle(lchInput, false)
+  setPalette()
+}
+
+function setPalette(): void {
+  let value = current.get()
+  let palette = generatePalette([value.l, value.c, value.h])
+  paletteLink.href = `${getPaletteLink({
+    name: 'playground',
+    hues: [
+      {
+        name: 'color',
+        colors: Object.values(palette)
+      }
+    ],
+    tones: ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900']
+  })}`
+  toggle(paletteLink, false)
+  Object.entries(palette).forEach(([k, v]) => {
+    demo.style.setProperty(`--palette-${k}`, v)
+  })
 }
 
 function setRgb(): void {
@@ -48,6 +84,7 @@ function setRgb(): void {
     noteFallback.classList.remove('is-hidden')
   }
   toggle(rgbInput, false)
+  setPalette()
 }
 
 current.subscribe(() => {
@@ -75,6 +112,7 @@ function listenChanges(input: HTMLInputElement): void {
       toggle(input, false)
     } else {
       toggle(input, true)
+      toggle(paletteLink, true)
     }
   }
 

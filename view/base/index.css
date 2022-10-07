@@ -1,27 +1,29 @@
-@import "./reset.css";
-@import "./colors.css";
+@import './reset.css';
+@import './colors.css';
 
 @font-face {
-  font-family: "Martian Mono";
-  font-weight: 100 800;
-  font-stretch: 75% 112.5%;
-  src: url(./MartianMono-0.9.1.woff2) format("woff2");
+  src: url('https://pub.user-owns-data.net/corp/design-system/webfonts/FiraCode-VF.woff2')
+    format('woff2-variations');
+  font-style: normal;
+  font-weight: 300 700;
   font-display: swap;
+  font-named-instance: Regular;
+  font-family: 'Fira Code';
 }
-
 :root {
   --radius: 12px;
-  --opacity-pattern:
-    repeating-conic-gradient(var(--chess) 0% 25%, var(--surface-1) 0% 50%)
+  --opacity-pattern: repeating-conic-gradient(
+      var(--chess) 0% 25%,
+      var(--surface-1) 0% 50%
+    )
     50% / 8px 8px;
   --unavailable-border: 1px dashed oklch(60% 0.05 310 / 40%);
 }
 
 body,
 kbd {
-  font-family: "Martian Mono", monospace;
-  font-size: 15px;
-  font-stretch: 112.5%;
+  font-family: 'Fira Code', monospace;
+  font-size: 16px;
 }
 
 body {

@@ -2,8 +2,8 @@
   width: fit-content;
   width: var(--card-width);
   padding: 24px var(--main-padding);
-  font-size: 10px;
-  line-height: 16px;
+  font-size: 12px;
+  line-height: 18px;
 
   @media (width < 830px) {
     padding-bottom: 0;

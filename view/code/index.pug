@@ -8,6 +8,22 @@
     type: 'text'
   })
   .code_note.is-paste
-    = `Paste HEX, RGBA, or HSL to convert to ${LCH ? 'LCH' : 'OKLCH'}`
+    = `Paste HEX, RGBA, or HSL to convert to OKLCH`
   .code_note.is-fallback.is-hidden
     = `Closest fallback (by chroma) in sRGB`
+
+
+.code
+  <div id="palette-demo">
+    <div class="p50"></div>
+    <div class="p100"></div>
+    <div class="p200"></div>
+    <div class="p300"></div>
+    <div class="p400"></div>
+    <div class="p500" ></div>
+    <div class="p600" ></div>
+    <div class="p700" ></div>
+    <div class="p800" ></div>
+    <div class="p900"></div>
+  </div>
+  <a target="_blank" id="palette-link" >Open Palette</a>

@@ -1,7 +1,6 @@
 {
-  "name": "oklch-picker",
+  "name": "@pleisto/oklch-picker",
   "private": true,
-  "homepage": "https://oklch.evilmartians.io/",
   "type": "module",
   "license": "MIT",
   "engines": {
@@ -10,7 +9,6 @@
   "scripts": {
     "start": "vite",
     "build": "vite build -m production",
-    "build:lch": "LCH=1 vite build -m production && ./lch.sh",
     "lint": "tsc --noEmit && eslint . && stylelint **/*.css",
     "test": "pnpm audit --prod && pnpm lint && pnpm build && size-limit && LCH=1 pnpm build"
   },
@@ -19,21 +17,22 @@
     "@nanostores/persistent": "^0.7.0",
     "autoprefixer": "^10.4.12",
     "culori": "github:bijela-gora/culori#2770175",
-    "firebase-tools": "^11.11.0",
     "jstransformer-markdown-it": "^3.0.0",
+    "lz-string": "^1.4.4",
     "nanostores": "^0.7.0",
-    "postcss": "^8.4.16",
+    "postcss": "^8.4.17",
     "postcss-media-minmax": "^5.0.0",
     "postcss-mixins": "^9.0.4",
     "postcss-nesting": "^10.2.0",
     "postcss-opacity-percentage": "^1.1.2",
-    "vite": "^3.1.3",
+    "vite": "^3.1.6",
     "vite-plugin-pug-transformer": "^1.0.2"
   },
   "devDependencies": {
     "@logux/eslint-config": "^47.2.0",
     "@logux/stylelint-config": "^0.12.0",
     "@size-limit/file": "^8.1.0",
+    "@types/lz-string": "^1.3.34",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "eslint": "^8.24.0",

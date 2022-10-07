@@ -14,8 +14,8 @@
   width: 50%;
   height: 84px;
   padding: 0 8px;
-  font-size: 10px;
-  line-height: 16px;
+  font-size: 12px;
+  line-height: 18px;
   color: var(--text-secondary);
   text-align: center;
   border: var(--unavailable-border);
@@ -54,7 +54,7 @@
   &::before {
     position: absolute;
     inset: 0;
-    content: "";
+    content: '';
     border-radius: var(--radius);
   }
 }

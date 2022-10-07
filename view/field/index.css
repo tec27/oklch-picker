@@ -12,7 +12,7 @@
   border: none;
   border-radius: var(--radius);
 
-  &[type="number"] {
+  &[type='number'] {
     text-align: right;
   }
 
@@ -32,9 +32,9 @@
   left: -24px;
   width: 16px;
   height: 16px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
-  line-height: 16px;
+  line-height: 18px;
   color: var(--text-note);
   text-align: center;
   text-transform: uppercase;
