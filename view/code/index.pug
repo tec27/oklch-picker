@@ -12,6 +12,15 @@
   .code_note.is-fallback.is-hidden
     = `Closest fallback (by chroma) in sRGB`
 
+.code.is-light-temp
+  +field('Light Temperature (K)', 't', {
+    type: 'number',
+    min: 1000,
+    max: 40000,
+    step: 100
+  })
+  .code_note.is-temp
+    = `Provide a CCT value (in Kelvin)`
 
 .code
   <div id="palette-demo">

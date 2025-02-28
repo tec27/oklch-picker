@@ -1,5 +1,5 @@
 import { clampChroma, Color } from 'culori/fn'
-import { map } from 'nanostores'
+import { atom, map } from 'nanostores'
 
 import { reportFreeze, benchmarking, resetCollecting } from './benchmark.js'
 import { getSpace, build, oklch, lch, AnyLch, Space } from '../lib/colors.js'
@@ -20,38 +20,59 @@ function randomColor(): LchValue {
   return { l: 70, c: C_RANDOM, h: Math.round(360 * Math.random()), a: 100 }
 }
 
-function parseHash(): LchValue | undefined {
-  let parts = location.hash.slice(1).split(',')
-  if (parts.length === 4) {
-    if (parts.every(i => /^\d+(\.\d+)?$/.test(i))) {
-      return {
-        l: parseFloat(parts[0]),
-        c: parseFloat(parts[1]),
-        h: parseFloat(parts[2]),
-        a: parseFloat(parts[3])
+function parseHash(): { color?: LchValue; lightTemp?: number } | undefined {
+  let colorAndTemp = location.hash.slice(1).split('|')
+  let color: LchValue | undefined
+  let lightTemp: number | undefined
+
+  if (colorAndTemp.length > 0) {
+    let parts = colorAndTemp[0].split(',')
+    if (parts.length === 4) {
+      if (parts.every(i => /^\d+(\.\d+)?$/.test(i))) {
+        color = {
+          l: parseFloat(parts[0]),
+          c: parseFloat(parts[1]),
+          h: parseFloat(parts[2]),
+          a: parseFloat(parts[3])
+        }
       }
     }
   }
-  return undefined
+
+  if (colorAndTemp.length > 1) {
+    let tempStr = colorAndTemp[1]
+    if (/^\d+$/.test(tempStr)) {
+      lightTemp = Number(tempStr)
+    }
+  }
+
+  return color !== undefined || lightTemp !== undefined
+    ? { color, lightTemp }
+    : undefined
 }
 
-export let current = map<LchValue>(parseHash() || randomColor())
+export let current = map<LchValue>(parseHash()?.color ?? randomColor())
+
+export let lightTemp = atom(parseHash()?.lightTemp ?? 5000)
 
 let full = { l: false, c: false, h: false }
 
-current.subscribe(
-  debounce(100, () => {
-    let { l, c, h, a } = current.get()
-    let hash = `#${l},${c},${h},${a}`
-    if (location.hash !== hash) {
-      history.pushState(null, '', `#${l},${c},${h},${a}`)
-    }
-  })
-)
+const updateHash = debounce(100, () => {
+  let { l, c, h, a } = current.get()
+  let temp = lightTemp.get()
+  let hash = `#${l},${c},${h},${a}|${temp}`
+  if (location.hash !== hash) {
+    history.pushState(null, '', hash)
+  }
+})
+
+current.subscribe(updateHash)
+lightTemp.subscribe(updateHash)
 
 window.addEventListener('hashchange', () => {
-  let color = parseHash()
-  if (color) current.set(color)
+  let { color, lightTemp: temp } = parseHash() ?? {}
+  if (color !== undefined) current.set(color)
+  if (temp !== undefined) lightTemp.set(temp)
 })
 
 interface ComponentCallback {

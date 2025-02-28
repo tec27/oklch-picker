@@ -18,6 +18,10 @@
   display: block;
 }
 
+.is-light-temp input {
+  text-align: left !important;
+}
+
 #palette-link {
   display: block;
   margin: 1.5rem 0;
