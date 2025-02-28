@@ -50,7 +50,7 @@
   min-height: 44px;
   border: 1px solid rgba(200, 200, 200, 0.35);
   display: grid;
-  grid-template-columns: repeat(10, 10%);
+  grid-template-columns: repeat(11, calc(100% / 11));
 }
 
 #palette-demo > div {
@@ -58,42 +58,46 @@
   height: 100%;
 }
 
+.p99 {
+  background: var(--palette-99);
+}
+
+.p95 {
+  background: var(--palette-95);
+}
+
+.p90 {
+  background: var(--palette-90);
+}
+
+.p80 {
+  background: var(--palette-80);
+}
+
+.p70 {
+  background: var(--palette-70);
+}
+
+.p60 {
+  background: var(--palette-60);
+}
+
 .p50 {
   background: var(--palette-50);
 }
 
-.p100 {
-  background: var(--palette-100);
+.p40 {
+  background: var(--palette-40);
 }
 
-.p200 {
-  background: var(--palette-200);
+.p30 {
+  background: var(--palette-30);
 }
 
-.p300 {
-  background: var(--palette-300);
+.p20 {
+  background: var(--palette-20);
 }
 
-.p400 {
-  background: var(--palette-400);
-}
-
-.p500 {
-  background: var(--palette-500);
-}
-
-.p600 {
-  background: var(--palette-600);
-}
-
-.p700 {
-  background: var(--palette-700);
-}
-
-.p800 {
-  background: var(--palette-800);
-}
-
-.p900 {
-  background: var(--palette-900);
+.p10 {
+  background: var(--palette-10);
 }
