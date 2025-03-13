@@ -1,6 +1,8 @@
 # OKLCH Palette Generator
 
-> Forked from [LCH Color Picker](https://github.com/evilmartians/oklch-picker), and add palette generator.
+> Forked from [OKLCH Palette Generator](https://github.com/pleisto/oklch-picker), with added hue
+> shift, which was forked from [LCH Color Picker](https://github.com/evilmartians/oklch-picker), to
+> add a palette generator.
 
 OKLCH is a new way to encode colors (like hex, RGBA, or HSL):
 
